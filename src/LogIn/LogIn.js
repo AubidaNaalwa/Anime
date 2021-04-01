@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { observer, inject } from 'mobx-react'
 import './LogIn.css'
-function LogIn() {
+function LogIn(props) {
     const [flag, setflag] = useState(0)
 
     return (
@@ -18,7 +19,7 @@ function LogIn() {
                     <form class="login-form">
                         <input type="text" placeholder="username" />
                         <input type="password" placeholder="password" />
-                        <button>login</button>
+                        <button onClick ={() =>props.userStore}>login</button>
                         <p class="message">Not registered? <span onClick={() => setflag(!flag)} >Create an account</span></p>
                     </form>
                 }
@@ -28,4 +29,4 @@ function LogIn() {
     );
 }
 
-export default LogIn;
+export default inject("userStore")(observer(LogIn))

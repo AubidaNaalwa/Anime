@@ -1,13 +1,21 @@
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { observer, inject } from 'mobx-react'
 import LogIn from './LogIn/LogIn'
+import Home from './Home/Home'
 import './App.css';
 
-function App() {
+function App(props) {
   return (
     <Router>
-      <LogIn />
+      <Switch>
+        <Route exact path="/" render={() => props.userStore.checkIfLoggedIn ? <Home /> : <LogIn />} />
+        <Route>
+          {props.userStore.setLoggedOut()}
+          <LogIn />
+        </Route>
+      </Switch>
     </Router>
   );
 }
 
-export default App;
+export default inject("userStore")(observer(App))
