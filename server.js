@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 const app = express()
-const api = require('./server/routes/api')
+const api = require('./server/route/api')
 const mongoose = require('mongoose')
 
 const url = "mongodb+srv://AubidaNaalwa:Admin1234@cluster0.cvbqr.mongodb.net/Anime?retryWrites=true&w=majority"

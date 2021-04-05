@@ -1,5 +1,5 @@
 import { observable, action, makeObservable, computed } from 'mobx'
-
+import axios from 'axios'
 
 export default class UserStore {
     constructor() {
@@ -11,6 +11,7 @@ export default class UserStore {
             username: observable,
             isLogged: observable,
             checkIfLoggedIn: computed,
+            logIn: action,
             setLoggedIn: action,
             setLoggedOut: action
         })
@@ -40,6 +41,23 @@ export default class UserStore {
         this.username = ""
         this.isLogged = false
     }
+
+
+    async logIn(username, password) {
+        try {
+            if (!username || !password) {
+                alert("username or password is incorrect ")
+                this.setLoggedOut()
+            }
+            const response = await axios.post('/login', { username, password })
+            if (response.data.err === 0) {
+                this.setLoggedIn(username)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
 
 }
