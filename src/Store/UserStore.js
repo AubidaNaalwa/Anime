@@ -10,28 +10,21 @@ export default class UserStore {
             name: observable,
             username: observable,
             isLogged: observable,
-            checkIfLoggedIn: computed,
+            checkIfLoggedIn: action,
             logIn: action,
             setLoggedIn: action,
             setLoggedOut: action
         })
     }
 
-    get checkIfLoggedIn() {
-        const username = localStorage.getItem('username')
-        const isLoggged = localStorage.getItem('isLogged')
-        if (!username || !isLoggged) {
-            this.setLoggedOut()
-            return false
-        }
-        else {
-            this.setLoggedIn(username)
-            return true
-        }
+     checkIfLoggedIn = ()=> {
+        this.username = localStorage.getItem('username')
+        this.isLogged = localStorage.getItem('isLogged')
     }
 
-    setLoggedIn(username) {
+    setLoggedIn =(username)=> {
         localStorage.setItem("username", username)
+        localStorage.setItem("isLogged", true)
         this.username = username
         this.isLogged = true
     }
@@ -47,7 +40,7 @@ export default class UserStore {
         try {
             if (!username || !password) {
                 alert("username or password is incorrect ")
-                this.setLoggedOut()
+                return
             }
             const response = await axios.post('/login', { username, password })
             if (response.data.err === 0) {

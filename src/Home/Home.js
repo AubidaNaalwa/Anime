@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { observer, inject } from 'mobx-react'
 
+import { observer, inject } from 'mobx-react'
+import NavBar from './NavBar'
 function Home(props) {
     
 
     return (
-        <div class="Home">
-            
+        <div className="Home">
+            <NavBar />
         </div>
 
     );
