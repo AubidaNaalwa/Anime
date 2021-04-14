@@ -8,7 +8,6 @@ function LogIn(props) {
     const [password, setPassword] = useState('')
     let history = useHistory()
     const logIn = (event) => {
-
         event.preventDefault();
         props.userStore.logIn(userName, password)
         history.push('/')

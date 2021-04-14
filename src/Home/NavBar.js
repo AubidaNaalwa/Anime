@@ -1,14 +1,13 @@
 import { observer, inject } from 'mobx-react'
 import './NavBar.css'
 function NavBar(props) {
-
-
     return (
         <div className="NavBar">
             <ul>
                 <li><a className="active" href="#home">Home</a></li>
                 <li><a href="#news">News</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li style={{ float: "right" }}><a onClick={props.userStore.setLoggedOut} href="/">LogOut</a></li>
             </ul>
         </div>
 

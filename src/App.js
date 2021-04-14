@@ -3,6 +3,7 @@ import { observer, inject } from 'mobx-react'
 import LogIn from './LogIn/LogIn'
 import Home from './Home/Home'
 import './App.css';
+import NavBar from './Home/NavBar'
 import { useEffect } from "react";
 
 function App(props) {
@@ -10,6 +11,7 @@ function App(props) {
 
   return (
     <Router>
+      {props.userStore.isLogged &&  <NavBar /> }
       <Switch>
         <Route exact path="/" >
           {props.userStore.isLogged ? <Home /> : <LogIn />}
