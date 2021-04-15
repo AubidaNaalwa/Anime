@@ -1,6 +1,9 @@
 import { observable, action, makeObservable, computed } from 'mobx'
 import axios from 'axios'
 
+
+
+
 export default class UserStore {
     constructor() {
         this.name = ""
@@ -17,7 +20,8 @@ export default class UserStore {
             setLoggedOut: action,
             loadDataFromServer: action,
             data: observable,
-            addDataToDB: action
+            addDataToDB: action,
+            loadData:action
         })
     }
 
@@ -55,6 +59,8 @@ export default class UserStore {
         }
     }
 
+
+    
     loadDataFromServer = async () => {
         try {
             const results = await axios.post('/data', {
@@ -77,5 +83,10 @@ export default class UserStore {
         } catch (error) {
             console.log(error)
         }
+    }
+
+    loadData= async (title)=>{
+        const {data} = await axios.get(`https://api.jikan.moe/v3/search/anime?q=${title}`)
+        this.data = data.results
     }
 }
