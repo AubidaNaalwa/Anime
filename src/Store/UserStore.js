@@ -6,6 +6,7 @@ export default class UserStore {
         this.name = ""
         this.username = ""
         this.isLogged = false
+        this.data = []
         makeObservable(this, {
             name: observable,
             username: observable,
@@ -13,16 +14,19 @@ export default class UserStore {
             checkIfLoggedIn: action,
             logIn: action,
             setLoggedIn: action,
-            setLoggedOut: action
+            setLoggedOut: action,
+            loadDataFromServer: action,
+            data: observable,
+            addDataToDB: action
         })
     }
 
-     checkIfLoggedIn = ()=> {
+    checkIfLoggedIn = () => {
         this.username = localStorage.getItem('username')
         this.isLogged = localStorage.getItem('isLogged')
     }
 
-    setLoggedIn =(username)=> {
+    setLoggedIn = (username) => {
         localStorage.setItem("username", username)
         localStorage.setItem("isLogged", true)
         this.username = username
@@ -51,4 +55,27 @@ export default class UserStore {
         }
     }
 
+    loadDataFromServer = async () => {
+        try {
+            const results = await axios.post('/data', {
+                username: this.username
+            })
+            this.data = results.data.data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    addDataToDB = async (data) => {
+        try {
+            const results = await axios.post('/adddata', {
+                username: this.username,
+                ...data
+            })
+            this.data = results.data.data
+            await this.loadDataFromServer()
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }

@@ -9,10 +9,13 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 function Home(props) {
     const [searchVlaue, setSearchValue] = useState('')
     const [loading, setLoading] = useState(true)
-    useEffect(() => {
-        setTimeout(()=>{
+    const loadData = async () => {
+        await
             setLoading(false)
-        },3000)
+    }
+    useEffect(() => {
+        loadData()
+
     }, [])
 
     return (
@@ -20,19 +23,19 @@ function Home(props) {
             {/* Arabic Manga Site
             Created By :Aubida Naalwa */}
             {
-                loading     
-             ?
-                        <Loader
-                            type="TailSpin"
-                            color="#00BFFF"
-                            height={100}
-                            width={100}
-                        />
-                        :
-                        <div className="Search" >
-                            <input className="serachBar" type="text" value={searchVlaue} onChange={({ target }) => setSearchValue(target.value)} />
-                            <button>Search</button>
-                        </div>
+                loading
+                    ?
+                    <Loader
+                        type="TailSpin"
+                        color="#00BFFF"
+                        height={100}
+                        width={100}
+                    />
+                    :
+                    <div className="Search" >
+                        <input className="serachBar" type="text" value={searchVlaue} onChange={({ target }) => setSearchValue(target.value)} />
+                        <button>Search</button>
+                    </div>
             }
 
         </div>

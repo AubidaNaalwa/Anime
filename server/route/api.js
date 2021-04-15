@@ -1,5 +1,6 @@
 const express = require('express')
 const Users = require('../Models/Users')
+const Data = require('../Models/Data')
 const router = express.Router()
 
 router.get('/test', (req, res) => {
@@ -41,6 +42,39 @@ router.post('/signUp', (req, res) => {
 
 })
 
+
+router.post('/data', (req, res) => {
+    if (!req.body.username ) {
+        res.status(303).send(
+            { msg: "missing info" }
+        )
+    }
+
+    Data.find({username : req.body.username }, function(error, data){
+        if(error){
+            res.status(404).send(
+                { msg: error }
+            )
+        }else{
+            res.status(200).send(data)
+        }
+
+    })
+})
+
+
+
+router.post('/adddata', (req, res) => {
+    if (!req.body.username ) {
+        res.status(303).send(
+            { msg: "missing info" }
+        )
+    }
+
+    const data = new Data(req.body)
+    data.save()
+    res.status(200).send({error:0})
+})
 
 
 module.exports = router
