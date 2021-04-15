@@ -4,16 +4,22 @@
 }
 .Search{
     display: grid;
-    grid-template-columns: 9fr 1fr;
+    grid-template-areas: 
+   ' b b b b b a'
+    'b b b b b a'
+    's s s s s s'
+    ;
     grid-gap: 1rem;
 }
 .serachBar{
+    grid-area:b;
     font-size: 17px;
     border: 1px solid grey;
     background: #f1f1f1;
 }
   
  button {
+    grid-area:a;
     background: #2196F3;
     color: white;
     font-size: 17px;
@@ -36,4 +42,16 @@ button:hover {
     height: 100px;
   }
 
-  
+  .SearchResults{
+    grid-area: s;
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    grid-gap:1rem;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .SearchResults {
+        display: grid;
+        grid-template-columns: auto ;
+    }
+  }
