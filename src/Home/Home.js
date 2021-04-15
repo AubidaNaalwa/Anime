@@ -44,7 +44,7 @@ function Home(props) {
                     <input className="serachBar" type="text" value={searchVlaue} onChange={({ target }) => setSearchValue(target.value)} />
                     <button onClick={handleSearch}>Search</button>
                     <div className="SearchResults">
-                        {props.userStore.data && props.userStore.data.length > 1 && props.userStore.data.map(v => <MediaCard title={v.title} image_url={v.image_url} />)}
+                        {props.userStore.data && props.userStore.data.length > 1 && props.userStore.data.map(v => <MediaCard title={v.title} image_url={v.image_url} synopsis={v.synopsis} />)}
                     </div>
                 </div>
             </div>
