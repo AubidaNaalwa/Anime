@@ -25,6 +25,12 @@ function Home(props) {
         props.userStore.loadData(searchVlaue)
     }
 
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            handleSearch()
+        }
+    }
+
     return (
 
 
@@ -41,7 +47,7 @@ function Home(props) {
                 {/* Arabic Manga Site
                 Created By :Aubida Naalwa */}
                 <div className="Search" >
-                    <input className="serachBar" type="text" value={searchVlaue} onChange={({ target }) => setSearchValue(target.value)} />
+                    <input className="serachBar" type="text" value={searchVlaue} onChange={({ target }) => setSearchValue(target.value)} onKeyPress={handleKeyPress} />
                     <button onClick={handleSearch}>Search</button>
                     <div className="SearchResults">
                         {props.userStore.data && props.userStore.data.length > 1 && props.userStore.data.map(v => <MediaCard title={v.title} image_url={v.image_url} synopsis={v.synopsis} />)}
